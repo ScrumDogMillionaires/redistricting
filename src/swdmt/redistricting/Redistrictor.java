@@ -154,4 +154,14 @@ public final class Redistrictor implements java.io.Serializable {
                                     final int districtSize) {
         return allDistrictsOfSpecificSize(theRegion, districtSize).iterator();
     }
+
+    public static boolean isContiguous(final Set<District> districts){
+        boolean contiguity = true;
+        /*=
+                        districts.stream()
+                                 .allMatch(dist -> dist.contiguityValid());
+        */
+
+        return contiguity;
+    }
 }
