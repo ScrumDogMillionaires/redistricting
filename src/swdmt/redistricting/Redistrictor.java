@@ -99,6 +99,11 @@ public final class Redistrictor implements java.io.Serializable {
         for (List<Location> locs : districtLocs) {
             districts.add(new District(locs));
         }
+
+        if (!isContiguous(districts)) {
+          generateDistricts(theRegion, numDistricts);
+        }
+
         return districts;
     }
 
@@ -153,5 +158,22 @@ public final class Redistrictor implements java.io.Serializable {
                                     final Region theRegion,
                                     final int districtSize) {
         return allDistrictsOfSpecificSize(theRegion, districtSize).iterator();
+    }
+
+    /**
+    * Checks to see that a set of districts
+    * is contiguous.
+    * @param districts set of districts
+    * @return boolean if all districts are contiguous
+    */
+    public static boolean isContiguous(final Set<District> districts) {
+        boolean contiguity = false;
+        for (District dist: districts) {
+            contiguity = dist.contiguityValid();
+            if (!contiguity) {
+              break;
+            }
+        }
+        return contiguity;
     }
 }

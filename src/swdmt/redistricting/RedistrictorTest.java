@@ -7,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.HashSet;
 /**
  * Tests for redistrictor.
  *
@@ -262,5 +264,129 @@ public class RedistrictorTest {
             assertTrue("Contiguity error for district " + d, d.contiguityValid());
         }
     }
-}
 
+    @Test
+    public void contiguousTestMethod() {
+        Set<District> districts = new HashSet<District>();
+        Set<Location> locations = new TreeSet<Location>();
+        District distOne, distTwo, distThree, distFour;
+
+        Location a = new Location(0, 0);
+        Location b = new Location(0, 1);
+        Location c = new Location(0, 2);
+        Location d = new Location(1, 0);
+        Location e = new Location(1, 1);
+        Location f = new Location(1, 2);
+        Location g = new Location(2, 0);
+        Location h = new Location(2, 1);
+        Location i = new Location(2, 2);
+
+
+        locations.add(a);
+        locations.add(b);
+        distOne = new District(locations);
+        locations.clear();
+        locations.add(d);
+        locations.add(e);
+        distTwo = new District(locations);
+        districts.add(distOne);
+        districts.add(distTwo);
+        assertThat(Redistrictor.isContiguous(districts), is(true));
+
+        locations.clear();
+        districts.clear();
+
+        locations.add(a);
+        locations.add(e);
+        distOne = new District(locations);
+        locations.clear();
+        locations.add(d);
+        locations.add(b);
+        distTwo = new District(locations);
+        districts.add(distOne);
+        districts.add(distTwo);
+        assertThat(Redistrictor.isContiguous(districts), is(false));
+
+        locations.clear();
+        districts.clear();
+
+        locations.add(a);
+        locations.add(d);
+        locations.add(e);
+        locations.add(g);
+        distOne = new District(locations);
+        locations.clear();
+        locations.add(b);
+        locations.add(c);
+        locations.add(h);
+        locations.add(f);
+        locations.add(i);
+        distTwo = new District(locations);
+        districts.add(distOne);
+        districts.add(distTwo);
+        assertThat(Redistrictor.isContiguous(districts), is(true));
+
+        locations.clear();
+        districts.clear();
+
+        locations.add(a);
+        locations.add(d);
+        locations.add(g);
+        locations.add(i);
+        distOne = new District(locations);
+        locations.clear();
+        locations.add(e);
+        locations.add(b);
+        locations.add(c);
+        locations.add(h);
+        locations.add(f);
+        distTwo = new District(locations);
+        districts.add(distOne);
+        districts.add(distTwo);
+        assertThat(Redistrictor.isContiguous(districts), is(false));
+
+        locations.clear();
+        districts.clear();
+
+        locations.add(c);
+        locations.add(b);
+        locations.add(a);
+        distOne = new District(locations);
+        locations.clear();
+        locations.add(f);
+        locations.add(e);
+        locations.add(d);
+        distTwo = new District(locations);
+        locations.clear();
+        locations.add(h);
+        locations.add(i);
+        locations.add(g);
+        distThree = new District(locations);
+        districts.add(distOne);
+        districts.add(distTwo);
+        districts.add(distThree);
+        assertThat(Redistrictor.isContiguous(districts), is(true));
+
+        districts.clear();
+        locations.clear();
+
+        locations.add(a);
+        locations.add(d);
+        locations.add(i);
+        distOne = new District(locations);
+        locations.clear();
+        locations.add(g);
+        locations.add(e);
+        locations.add(h);
+        distTwo = new District(locations);
+        locations.clear();
+        locations.add(f);
+        locations.add(b);
+        locations.add(c);
+        distThree = new District(locations);
+        districts.add(distOne);
+        districts.add(distTwo);
+        districts.add(distThree);
+        assertThat(Redistrictor.isContiguous(districts), is(false));
+    }
+}

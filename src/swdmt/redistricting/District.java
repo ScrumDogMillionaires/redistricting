@@ -56,16 +56,14 @@ public class District implements java.io.Serializable {
     public boolean contiguityValid() {
         boolean contiguous = true;
         if (this.locations.size() > 1) {
-            contiguous =
-                this.locations
-                    .stream()
-                    .filter(loc ->
-                            this.locations
-                                .stream()
-                                .anyMatch(locCheck ->
-                                          loc.isAdjacentTo(locCheck)))
-                    .findFirst()
-                    .isPresent();
+            for (Location thisLocation : this.locations) {
+                for (Location thatLocation : this.locations) {
+                    contiguous = thisLocation.isAdjacentTo(thatLocation);
+                    if (contiguous) {
+                        break;
+                    }
+                }
+            }
         }
         return contiguous;
     }
