@@ -105,4 +105,12 @@ public class RegionTest {
         voters.add(new Voter(null, new Location(5,9)));
         assertThat(newRegion.convertToSquareRegion(voters), is(9));
     }
+
+    @Test(timeout = MAX_TIMEOUT)
+    public void votersOnlyRegionTest(){
+
+
+
+    }
+
 }
