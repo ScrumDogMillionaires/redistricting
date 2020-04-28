@@ -107,10 +107,27 @@ public class RegionTest {
     }
 
     @Test(timeout = MAX_TIMEOUT)
-    public void votersOnlyRegionTest(){
-
-
+    public void votersOnlySquareRegionTest(){
+        int numVotersSquare = 4;
+        Set<Voter> voters = new HashSet<>();
+        for (int i = 0; i < numVotersSquare; i++) {
+            for (int k = 0; k < numVotersSquare; k++){
+                voters.add(new Voter(null, new Location(i, k)));
+            }
+        }
+        Region newRegion = new Region(voters);
 
     }
 
+    @Test(timeout = MAX_TIMEOUT)
+    public void votersOnlyNotSquareRegionTest(){
+        int numVoters = 5;
+        Set<Voter> voters = new HashSet<>();
+        for (int i = 0; i < numVoters; i ++) {
+            for (int k = 0; k < numVoters; k++) {
+                voters.add(new Voter(null, new Location(i, k)));
+            }
+        }
+        Region newRegion = new Region(voters);
+    }
 }
