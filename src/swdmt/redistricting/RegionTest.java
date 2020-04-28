@@ -93,21 +93,21 @@ public class RegionTest {
     public void modifiedRegionTest(){
         Set<Voter> voters = new HashSet<>();
         Region newRegion = new Region();
-        voters.add(new Voter(null, new Location(0,0)));
-        voters.add(new Voter(null, new Location(0,4)));
-        voters.add(new Voter(null, new Location(5,0)));
+        voters.add(new Voter(null, new Location(0, 0)));
+        voters.add(new Voter(null, new Location(0, 4)));
+        voters.add(new Voter(null, new Location(5, 0)));
         assertThat(newRegion.convertToSquareRegion(voters), is(5));
 
         voters.clear();
-        voters.add(new Voter(null, new Location(1,0)));
-        voters.add(new Voter(null, new Location(2,4)));
-        voters.add(new Voter(null, new Location(5,5)));
-        voters.add(new Voter(null, new Location(5,9)));
+        voters.add(new Voter(null, new Location(1, 0)));
+        voters.add(new Voter(null, new Location(2, 4)));
+        voters.add(new Voter(null, new Location(5, 5)));
+        voters.add(new Voter(null, new Location(5, 9)));
         assertThat(newRegion.convertToSquareRegion(voters), is(9));
     }
 
     @Test(timeout = MAX_TIMEOUT)
-    public void votersOnlySquareRegionTest(){
+    public void votersOnlySquareRegionTest() {
         int numVotersSquare = 4;
         Set<Voter> voters = new HashSet<>();
         for (int i = 0; i < numVotersSquare; i++) {
@@ -120,10 +120,10 @@ public class RegionTest {
     }
 
     @Test(timeout = MAX_TIMEOUT)
-    public void votersOnlyNotSquareRegionTest(){
+    public void votersOnlyNotSquareRegionTest() {
         int numVoters = 5;
         Set<Voter> voters = new HashSet<>();
-        for (int i = 0; i < numVoters; i ++) {
+        for (int i = 0; i < numVoters; i++) {
             for (int k = 0; k < numVoters; k++) {
                 voters.add(new Voter(null, new Location(i, k)));
             }
