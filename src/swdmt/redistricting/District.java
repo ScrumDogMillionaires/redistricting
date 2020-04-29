@@ -2,6 +2,7 @@ package swdmt.redistricting;
 import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.HashSet;
 /**
  * A district is a contiguous group of locations.
  *
@@ -53,22 +54,37 @@ public class District implements java.io.Serializable {
      * Contiguity is always true for districts of size 0 or 1.
      * @return true if all locations are contiguous; false otherwise
      */
-    public boolean contiguityValid() {
-        boolean contiguous = true;
-        if (this.locations.size() > 1) {
-            contiguous =
-                this.locations
-                    .stream()
-                    .filter(loc ->
-                            this.locations
-                                .stream()
-                                .anyMatch(locCheck ->
-                                          loc.isAdjacentTo(locCheck)))
-                    .findFirst()
-                    .isPresent();
+     public boolean contiguityValid() {
+            boolean contiguous = true;
+            if (this.locations.size() > 1) {
+                Set<Location> contiguousLocations = new HashSet<>();
+                Set<Location> filterdLoc = new HashSet<>();
+                Location homeLoc = this.locations.iterator().next();
+                boolean filLocSet = true;
+                int conLocSize = contiguousLocations.size();
+                int thisLocSize = this.locations.size();
+                contiguousLocations.add(homeLoc);
+                contiguous = false;
+                while (conLocSize < thisLocSize && filLocSet) {
+                    contiguousLocations.forEach(current ->
+                                this.locations
+                                    .stream()
+                                    .filter(current::isAdjacentTo)
+                                    .filter(loc1 ->
+                                            !contiguousLocations.contains(loc1))
+                                            .forEach(filterdLoc::add));
+                    if (filterdLoc.isEmpty()) {
+                        filLocSet = false;
+                    }
+                    contiguousLocations.addAll(filterdLoc);
+                    filterdLoc.clear();
+                }
+                if (this.locations.size() == contiguousLocations.size()) {
+                    contiguous = true;
+                }
+            }
+            return contiguous;
         }
-        return contiguous;
-    }
 
     @Override
     public String toString() {
