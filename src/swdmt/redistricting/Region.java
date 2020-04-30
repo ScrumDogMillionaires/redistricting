@@ -141,16 +141,4 @@ public class Region implements java.io.Serializable {
     public Set<Voter> voters() {
         return this.voters;
     }
-
-    /**
-    * @TODO Take in a set of voters and return the sideSize
-    * length needed to fit the voters into a RegionTest
-    * @param voterSet the set of voters
-    * @return length of side
-    */
-    public int convertToSquareRegion(final Set<Voter> voterSet) {
-        System.out.println("inConvertToSquareRegionMethod...");
-
-        return 0;
-    }
 }
