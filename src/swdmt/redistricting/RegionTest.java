@@ -89,23 +89,6 @@ public class RegionTest {
         }
     }
 
-    @Test
-    public void modifiedRegionTest(){
-        Set<Voter> voters = new HashSet<>();
-        Region newRegion = new Region();
-        voters.add(new Voter(null, new Location(0, 0)));
-        voters.add(new Voter(null, new Location(0, 4)));
-        voters.add(new Voter(null, new Location(5, 0)));
-        assertThat(newRegion.convertToSquareRegion(voters), is(5));
-
-        voters.clear();
-        voters.add(new Voter(null, new Location(1, 0)));
-        voters.add(new Voter(null, new Location(2, 4)));
-        voters.add(new Voter(null, new Location(5, 5)));
-        voters.add(new Voter(null, new Location(5, 9)));
-        assertThat(newRegion.convertToSquareRegion(voters), is(9));
-    }
-
     @Test(timeout = MAX_TIMEOUT)
     public void votersOnlySquareRegionTest() {
         int numVotersSquare = 4;
@@ -116,7 +99,6 @@ public class RegionTest {
             }
         }
         Region newRegion = new Region(voters);
-
     }
 
     @Test(timeout = MAX_TIMEOUT)
